@@ -1,0 +1,50 @@
+/* Fixed layout; camera-morph.js changes transforms, not page geometry, per frame. */
+.camera-app .camera-controls,.camera-app.open .camera-controls{position:absolute;top:calc(var(--safe-top) + 4px);left:0;width:100%;height:var(--camera-space);opacity:1;transition:none;pointer-events:none;overflow:visible;z-index:4}
+.camera-app.open .camera-controls{pointer-events:auto}
+.camera-app .lens-position,.camera-app.open .lens-position{top:0;transform:none;transition:none}
+.camera-app .lens{transform-origin:center top;transition:none;will-change:transform;overflow:hidden}
+.camera-app .aperture{transition:none}
+.camera-app .island{position:absolute;top:calc(var(--safe-top) + 12px);left:calc(50% - 59px);margin:0;background:transparent;border:0;box-shadow:none;opacity:1;transition:none;z-index:8}
+.camera-app .island-dot{display:none}
+.camera-app.open .island{opacity:0;pointer-events:none}
+.camera-app .camera-header,.camera-app.open .camera-header{position:absolute;top:calc(var(--safe-top) + 46px);left:0;width:100%;height:102px;transition:none;will-change:transform;z-index:3}
+.camera-app .logo,.camera-app.open .logo{font-size:39px;transform-origin:center center}
+.camera-app .logo span{font-size:.58em;line-height:1;margin:3px 0 0;letter-spacing:-.04em;white-space:nowrap}
+.camera-app .album{position:absolute;top:calc(var(--safe-top) + 148px);left:4%;right:4%;width:92%;margin:0;min-height:110px;height:calc(100% - 164px - var(--safe-top) - var(--safe-bottom));transition:none;will-change:transform}
+.camera-app .shutter-row{transition:none}
+.camera-app .zoom-lever{transition:none}
+.camera-app.open{touch-action:pan-y}
+.camera-app .lens,.camera-app .lens *{touch-action:none}
+.camera-app .film-switch{position:absolute;left:8px;right:auto;top:84px;width:44px;height:84px;padding:9px 2px 7px;z-index:5;border:1px solid var(--control-edge);border-radius:15px;color:var(--control-ink);background-color:var(--control-base);background-image:linear-gradient(160deg,var(--control-top),var(--control-base) 60%,var(--control-edge));box-shadow:0 3px 0 #70251e,0 5px 7px var(--control-shadow),inset 0 1px 0 var(--control-light);touch-action:none;transition:transform var(--control-speed),box-shadow var(--control-speed)}
+.film-switch svg{width:22px;height:22px;margin:0 auto 4px}
+.film-switch span{display:block;font-size:12px;line-height:1.5;letter-spacing:.03em;pointer-events:none}
+.film-switch .film-number{font-size:11px;line-height:1.5;letter-spacing:.04em;color:var(--control-muted);margin-top:2px}
+.camera-app .film-switch:enabled:active{transform:translateY(2px);box-shadow:0 1px 0 #70251e,inset 0 2px 3px var(--control-shadow)}
+.camera-app .film-switch:disabled{pointer-events:none}
+@media(hover:hover){.camera-app .film-switch:enabled:hover{border-color:var(--control-muted)}}
+.camera-app .flip-assembly{left:auto;right:10%;width:50px}
+.camera-app .flip-button{width:50px;height:50px}
+.camera-app .zoom-lever{position:absolute;left:auto;right:8px;top:74px;width:44px;height:112px;z-index:5;touch-action:none;cursor:ns-resize;border-radius:18px;background:none}
+.zoom-lever:before{content:'';position:absolute;top:14px;bottom:14px;left:18px;width:8px;border-radius:5px;background:#8e2b24;box-shadow:inset 1px 1px 3px #6e211b,1px 0 0 #f9886e}
+.camera-app .zoom-lever span{top:14px;left:5px;width:34px;height:24px;transform-origin:center center;border-radius:6px;transition:none;box-shadow:0 3px 0 #86281f,0 5px 6px rgba(70,15,16,.3),inset 0 1px 0 #ffbc92}
+.camera-app .zoom-lever span:after{left:8px;right:8px;top:7px;width:auto;height:9px;background:repeating-linear-gradient(0deg,#a6382b 0,#a6382b 1px,#f7916b 1px,#f7916b 3px)}
+.camera-app .zoom-lever.held{background:rgba(93,23,19,.08)}
+.pull-hint{position:absolute;top:calc(var(--safe-top) + 20px);left:calc(50% + 74px);right:12px;margin:0;text-align:left;color:#23110d;font-size:11px;line-height:1.5;white-space:nowrap;pointer-events:none;z-index:4}
+.pull-hint:before{content:'↓';margin-right:4px}
+.camera-app .film-label{color:#23110d}
+.shape-hint{position:absolute;left:0;top:calc(var(--camera-space) - 32px);width:100%;margin:0;text-align:center;color:#ffe2d1;font-size:12px;line-height:1.5;pointer-events:none}
+#previewFreeze{position:absolute;top:0;left:0;width:100%;height:100%;object-fit:cover;z-index:3}
+.camera-app.morphing #cameraMessage{visibility:hidden}
+.camera-app.print-preparing .camera-controls{visibility:visible;opacity:1;transition:none}
+.camera-app.printing .lens,.camera-app.printing .film-switch,.camera-app.printing .zoom-lever,.camera-app.printing .shape-hint,.camera-app.printing .shutter-row{visibility:hidden}
+.camera-app.printing .island{left:50%;transform:translateX(-50%);background:#050505;border:2px solid #f4775e;box-shadow:0 3px 0 #a92c23,0 6px 8px #9f302e,inset 0 1px 2px #331b1c;opacity:1}
+.camera-app.printing .island:before{display:none}
+.print-slot{display:none;position:absolute;left:12px;right:12px;top:50%;height:5px;transform:translateY(-50%);background:#080608;box-shadow:0 -1px 2px #574441,0 1px 1px rgba(255,255,255,.14);pointer-events:none}
+.printing .print-slot{display:block}
+.camera-app .eject-photo{z-index:9}
+.camera-app .eject-photo:after{height:4px}
+.camera-app .eject-feed{transform-origin:center top}
+.camera-app .eject-card{transform:none}
+@media(max-height:600px){.camera-app.open{min-height:740px}.camera-app{overflow-y:auto}.camera-app .album{min-height:110px}.shape-hint{font-size:11px}}
+@media(prefers-reduced-motion:reduce){.camera-app .lens,.camera-app .album,.camera-app .camera-header{will-change:auto}}
+@media(prefers-reduced-motion:reduce){.camera-app .film-switch{transition:none}.camera-app .film-switch:active{transform:none}}

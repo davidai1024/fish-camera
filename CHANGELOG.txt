@@ -1,0 +1,12 @@
+Fish Camera 3.2.6 公开版 · 2026-11-09
+
+- 出纸和滑动相纸的声音改为 Web Audio 合成。移除了仅供本地对照的参考音频和清单。
+- 保留 3.2.6 验证版的应用界面、拍摄与显影流程和胶片数据。
+
+胶片与相纸数据来源
+
+- 来源为 Andrea Volpato 的 spektrafilm，采用 CC BY-SA 4.0。
+  https://github.com/andreavolpato/spektrafilm
+- Minseo 的移动端移植使用转换后的胶片与相纸配方及查找表，封装在 data-*.png 中，
+  由 mobile-profiles.js 提供索引。公开版与提供的 3.2.6 验证包使用相同的数据文件。
+- 原始署名和数据许可保存在 licenses/SPEKTRAFILM-CC-BY-SA-4.0.json。

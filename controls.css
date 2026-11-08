@@ -1,0 +1,119 @@
+/* Tactile controls: static surfaces, crisp engravings, no image-processing changes. */
+:root {
+  --control-ink: #f0f1f2;
+  --control-muted: #cac5cd;
+  --control-top: #45444a;
+  --control-base: #202024;
+  --control-edge: #111115;
+  --control-light: rgba(255,255,255,.34);
+  --control-shadow: rgba(6,4,8,.38);
+  --control-speed: 120ms;
+}
+svg {stroke-width:1.8}
+button svg {pointer-events:none}
+
+/* Camera hardware: machined rim, convex keycap, dark seat. */
+.settings,.flip-button {
+  border:1px solid #292529;
+  background-color:var(--control-base);
+  background-image:radial-gradient(ellipse at 30% 8%,rgba(255,255,255,.13),transparent 58%),linear-gradient(165deg,#4b494c 0%,#2d2b30 45%,#1b191e 100%);
+  color:var(--control-ink);
+  box-shadow:0 0 0 2px #f27860,0 0 0 3px #bc382c,0 3px 0 #70251e,0 6px 8px rgba(83,20,19,.25),inset 0 1px 0 rgba(255,255,255,.4),inset 0 -2px 2px rgba(0,0,0,.35);
+  transition:transform var(--control-speed),box-shadow var(--control-speed);
+}
+.settings {border-radius:50%;width:44px;height:44px}
+.settings svg,.flip-button svg {width:22px;height:22px;stroke-width:1.8;filter:drop-shadow(0 1px 0 #080709)}
+.settings:enabled:active,.flip-button:enabled:active {
+  transform:translateY(2px);
+  box-shadow:0 0 0 2px #f27860,0 0 0 3px #bc382c,0 1px 0 #70251e,inset 0 2px 3px rgba(0,0,0,.4),inset 0 -1px 0 rgba(255,255,255,.12);
+}
+.shutter {
+  background:linear-gradient(145deg,#fd8e70,#ba382c);
+  border:2px solid #f88b6b;
+  padding:5px;
+  box-shadow:0 4px 0 #9f2c24,0 8px 12px rgba(112,27,21,.32),inset 0 1px 0 #ffd2a4,inset 0 -1px 2px #75251f;
+  transition:transform 90ms,box-shadow 90ms;
+}
+.shutter span {
+  border:2px solid #774122;
+  background:radial-gradient(ellipse at 40% 18%,rgba(255,233,156,.58),transparent 60%),linear-gradient(160deg,#f5b34b,#e99b30 60%,#c87722);
+  box-shadow:0 1px 0 rgba(255,206,121,.6),inset 0 2px 2px #ffe29c,inset 1px 0 1px rgba(255,220,142,.65),inset 0 -3px 3px rgba(134,68,14,.28);
+}
+.shutter:enabled:active {transform:translateY(3px);box-shadow:0 1px 0 #9f2c24,0 3px 5px rgba(112,27,21,.24),inset 0 1px 0 #ffd2a4}
+.shutter:enabled:active span {box-shadow:inset 0 2px 4px rgba(112,61,18,.35),inset 0 -1px 0 #ffd98a}
+.flash-button {
+  border:2px solid #c2c789;
+  color:#252e15;
+  background:radial-gradient(ellipse at 32% 16%,rgba(230,239,162,.6),transparent 58%),linear-gradient(160deg,#a6b66b,#8d9d51 55%,#72823e);
+  box-shadow:0 0 0 1px #797a43,0 3px 0 #62652f,0 6px 9px rgba(83,20,19,.28),inset 0 1px 1px #e8ecc1,inset 0 -2px 2px rgba(40,51,20,.35);
+  transition:transform var(--control-speed),box-shadow var(--control-speed),color var(--control-speed);
+}
+.flash-button svg {width:23px;height:23px;stroke-width:1.8;filter:drop-shadow(0 1px 0 rgba(224,239,176,.45))}
+.flash-button.on {
+  color:#25320f;border-color:#e0e8a1;
+  background:radial-gradient(ellipse at 32% 16%,#edf8b9,transparent 60%),linear-gradient(155deg,#d7e995,#b9d26c 65%,#97b24f);
+  box-shadow:0 0 0 1px #82884b,0 3px 0 #677539,0 5px 9px rgba(83,20,19,.23),inset 0 1px 1px #ffffd8,inset 0 -2px 2px rgba(81,101,30,.25);
+}
+.flash-button:enabled:active {transform:translateY(2px);box-shadow:0 0 0 1px #797a43,0 1px 0 #62652f,inset 0 2px 4px rgba(40,51,20,.28),inset 0 -1px 0 rgba(233,245,182,.5)}
+.zoom-lever span {background:linear-gradient(#fb9876,#e26047 45%,#b23729);border-color:#923124;box-shadow:0 2px 0 #923025,0 3px 4px rgba(91,26,22,.26),inset 0 1px 0 #ffbf8d}
+.zoom-lever span:after {content:'';width:7px;height:8px;right:3px;top:3px;background:repeating-linear-gradient(0deg,#a6382b 0,#a6382b 1px,#f7916b 1px,#f7916b 3px)}
+
+/* Independent touch regions, inset from the native screen-edge gestures. */
+.camera-header,.logo,.empty-album {touch-action:none;-webkit-user-select:none;user-select:none}
+.flip-assembly {left:auto;right:12px;width:110px}
+.flip-button {width:44px;height:44px;flex-shrink:0}
+.zoom-lever {left:52px;top:7px;width:52px;height:56px;z-index:3;border-radius:14px;cursor:ns-resize;-webkit-user-select:none;user-select:none}
+.zoom-lever span {left:10px;top:20px;width:24px;height:19px;pointer-events:none}
+.zoom-lever.held {background:rgba(92,23,19,.12)}
+.zoom-lever.held span {box-shadow:0 1px 0 #923025,inset 0 1px 0 #ffbf8d}
+@media(max-width:360px){.flip-assembly{right:5px;width:102px}.zoom-lever{left:52px;width:48px}.shutter{width:82px;height:82px;left:calc(50% - 41px)}}
+
+/* Utility controls keep their material; photo actions stay unframed. */
+.viewer #retryDevelop,.album-import,.settings-card #closeSettings {
+  border:1px solid rgba(255,255,255,.2);
+  border-radius:50%;
+  color:var(--control-ink);
+  background-color:var(--control-base);
+  background-image:radial-gradient(ellipse at 25% 0%,rgba(232,238,248,.13),transparent 62%),linear-gradient(155deg,#414047,#24232a 52%,#1a1920);
+  box-shadow:0 2px 0 #100e14,0 5px 10px var(--control-shadow),inset 0 1px 0 var(--control-light),inset 0 -1px 0 rgba(255,255,255,.035);
+  transition:transform var(--control-speed),box-shadow var(--control-speed);
+}
+.settings-card #closeSettings {width:44px;height:44px;padding:10px}
+.settings-card #closeSettings svg {width:18px;height:18px;stroke-width:1.8}
+.viewer #retryDevelop {border-radius:18px;padding:8px 12px;font-size:12px}
+.album-import {width:48px;height:48px;padding:12px}
+.album-import svg {width:22px;height:22px;stroke-width:1.8}
+.viewer footer {height:96px;min-height:96px;padding:0 12px;flex-shrink:0}
+.viewer footer button {width:72px;height:80px;min-height:80px;padding:14px 8px 8px;border:0;border-radius:0;background:none;box-shadow:none;color:var(--control-ink);transition:transform var(--control-speed),color var(--control-speed),opacity var(--control-speed)}
+.viewer footer svg {width:24px;height:24px;stroke-width:1.8;filter:none}
+.viewer footer span {display:block;font-size:12px;line-height:1.5;letter-spacing:.04em;margin-top:10px;color:var(--control-muted)}
+.viewer footer button:enabled:active {transform:translateY(1px);opacity:.7}
+.viewer #retryDevelop:active,.album-import:active,.settings-card #closeSettings:active {transform:translateY(2px);box-shadow:0 1px 0 #100e14,inset 0 2px 4px rgba(0,0,0,.44),inset 0 -1px 0 rgba(255,255,255,.12)}
+.viewer #compare[aria-pressed=true],.viewer #compare[aria-pressed=true] span {color:#f5e8c5}
+.viewer #compare {touch-action:none;-webkit-touch-callout:none;-webkit-user-select:none;user-select:none}
+.viewer #compare:enabled:active {transform:none;opacity:1}
+.viewer #compare span {white-space:nowrap}
+.viewer #photoKind {position:absolute;left:0;right:0;text-align:center;font-size:12px;line-height:1.5;letter-spacing:.04em;color:var(--control-ink);pointer-events:none}
+.viewer #photoKind[data-kind=original] {color:#f5e8c5}
+.viewer[data-develop-state=ready] .paper,.viewer[data-develop-state=error] .paper {cursor:default;touch-action:pan-y}
+.viewer #progress {display:none}
+.viewer footer button:disabled {opacity:.4}
+.empty-album>svg {width:44px;height:44px;flex-shrink:0;color:#bdabba;stroke-width:1.45;filter:drop-shadow(0 1px 0 rgba(255,255,255,.12)) drop-shadow(0 -1px 0 rgba(0,0,0,.6))}
+.empty-album>* {flex-shrink:0}
+.open .empty-album {padding:16px 10px;min-height:238px}
+.settings-card .setting-row span svg {width:18px;height:18px;stroke-width:1.8;color:#d9dbe2}
+.settings-card #soundState:after {box-shadow:0 1px 2px rgba(0,0,0,.45),inset 0 1px 0 rgba(255,255,255,.7)}
+.settings-card #soundToggle[aria-pressed=true] #soundState:after {box-shadow:0 1px 3px rgba(0,0,0,.35),inset 0 1px 0 rgba(255,255,255,.35),inset 0 -1px 0 #06070b}
+@media(hover:hover) {
+  .settings:enabled:hover,.flip-button:enabled:hover {border-color:#a39593}
+  .viewer footer button:enabled:hover span {color:#f5f1f6}
+  .album-import:hover,.settings-card #closeSettings:hover {border-color:rgba(255,255,255,.37)}
+}
+@media(max-height:600px) {
+  .viewer footer {height:82px;min-height:82px}
+  .viewer footer button {height:76px;min-height:76px}
+}
+@media(prefers-reduced-motion:reduce) {
+  .settings,.flip-button,.flash-button,.shutter,.viewer footer button,.viewer #retryDevelop,.album-import,.settings-card #closeSettings {transition:none!important}
+  .settings:active,.flip-button:active,.flash-button:active,.shutter:active,.viewer footer button:active,.viewer #retryDevelop:active,.album-import:active,.settings-card #closeSettings:active {transform:none!important}
+}
